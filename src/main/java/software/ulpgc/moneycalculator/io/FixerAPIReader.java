@@ -7,12 +7,20 @@ import java.io.IOException;
 
 import static org.jsoup.Connection.Method.GET;
 
-public class FixerCurrencyReader implements CurrencyReader {
+public class FixerAPIReader implements Reader {
 
+    private final String apiURL;
+
+    private final String apiKey;
+
+    public FixerAPIReader(String apiURL, String apiKey) {
+        this.apiURL = apiURL;
+        this.apiKey = apiKey;
+    }
     @Override
     public String read() {
         try {
-            return read(FixerAPI.FIXER_API_CURRENCIES_URL + FixerAPI.FIXER_API_KEY);
+            return read(apiURL+apiKey);
         } catch (IOException e) {
             throw new RuntimeException("Error al obtener datos de la API", e);
         }

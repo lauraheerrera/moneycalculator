@@ -1,5 +1,5 @@
 package software.ulpgc.moneycalculator.io;
 
-public interface CurrencyReader {
+public interface Reader {
     String read();
 }
