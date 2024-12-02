@@ -15,6 +15,7 @@ public class MainFrame extends JFrame {
     private MoneyDisplay moneyDisplay;
     private MoneyDialog moneyDialog;
     private CurrencyDialog currencyDialog;
+    private final static Font FONT = new Font(Font.SERIF, Font.PLAIN, 20);
 
     public MainFrame() throws HeadlessException {
         this.setTitle("Money Calculator");
@@ -39,6 +40,8 @@ public class MainFrame extends JFrame {
         JLabel label = new JLabel("Amount:");
         panel.add(label);
         amountField.setColumns(12);
+        amountField.setFont(FONT);
+        amountField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         panel.add(amountField);
         return panel;
     }
@@ -52,7 +55,11 @@ public class MainFrame extends JFrame {
     private Component createSouthPanel() {
         JPanel panel = new JPanel();
         JButton button = new JButton("Convert");
+        button.setFont(FONT);
+        button.setBackground(new Color(70, 130, 180));
         button.setForeground(Color.WHITE);
+        button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        button.setPreferredSize(new Dimension(150, 40));
         button.addActionListener(e -> {
             try {
                 commands.get("Calculate money").execute();
