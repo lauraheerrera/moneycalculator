@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class SwingCurrencyDialog extends JPanel implements CurrencyDialog {
+    public static final Font FONT = new Font(Font.SERIF, Font.PLAIN, 15);
     private JComboBox<Currency> currencySelector;
     private final String label;
 
@@ -19,7 +20,8 @@ public class SwingCurrencyDialog extends JPanel implements CurrencyDialog {
     @Override
     public CurrencyDialog define(List<Currency> currencies) {
         JLabel text = new JLabel(label);
-        text.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        text.setForeground(Color.WHITE);
+        text.setFont(FONT);
         add(text);
         add(createCurrencySelector(currencies));
         return this;
@@ -27,14 +29,20 @@ public class SwingCurrencyDialog extends JPanel implements CurrencyDialog {
 
     private Component createCurrencySelector(List<Currency> currencies) {
         JComboBox<Currency> selector = new JComboBox<>();
-        selector.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
-        for (Currency currency : currencies) selector.addItem(currency);
+        selector.setFont(FONT);
+        for (Currency currency : currencies) {
+            selector.addItem(currency);
+        }
 
+        Currency defaultCurrency = null;
+        if (Objects.equals(label, "FROM: ")) {
+            defaultCurrency = new Currency("EUR", "Euro");
+        } else if (Objects.equals(label, "TO: ")) {
+            defaultCurrency = new Currency("USD", "United States Dollar");
+        }
 
-        if (Objects.equals(label, "From:")) {
-            selector.setSelectedItem(new Currency("EUR", "Euro"));
-        } else if (Objects.equals(label, "To:")) {
-            selector.setSelectedItem(new Currency("USD", "United States Dollar"));
+        if (defaultCurrency != null) {
+            selector.setSelectedItem(defaultCurrency);
         }
 
         this.currencySelector = selector;
