@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class SwingCurrencyDialog extends JPanel implements CurrencyDialog {
+    public static final Font LABELFONT = new Font(Font.SERIF, Font.BOLD, 15);
     public static final Font FONT = new Font(Font.SERIF, Font.PLAIN, 15);
     private JComboBox<Currency> currencySelector;
     private final String label;
@@ -21,7 +22,7 @@ public class SwingCurrencyDialog extends JPanel implements CurrencyDialog {
     public CurrencyDialog define(List<Currency> currencies) {
         JLabel text = new JLabel(label);
         text.setForeground(Color.WHITE);
-        text.setFont(FONT);
+        text.setFont(LABELFONT);
         add(text);
         add(createCurrencySelector(currencies));
         return this;
@@ -47,6 +48,10 @@ public class SwingCurrencyDialog extends JPanel implements CurrencyDialog {
 
         this.currencySelector = selector;
         return selector;
+    }
+
+    public JComboBox<Currency> getCurrencySelector() {
+        return currencySelector;
     }
 
     @Override

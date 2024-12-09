@@ -35,4 +35,8 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
     private double toDouble(String text) {
         return Double.parseDouble(text);
     }
+
+    public SwingCurrencyDialog getCurrencyDialog() {
+        return (SwingCurrencyDialog) currencyDialog;
+    }
 }

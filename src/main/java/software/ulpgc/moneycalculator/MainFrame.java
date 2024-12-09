@@ -16,12 +16,13 @@ public class MainFrame extends JFrame {
     private MoneyDialog moneyDialog;
     private CurrencyDialog toCurrencyDialog;
     private final static Font FONT = new Font(Font.SERIF, Font.BOLD, 15);
+    private final static Font SWAPFONT = new Font(Font.SERIF, Font.BOLD, 40);
     private final static Color orange = new Color(255, 159, 10);
     private final static Color grey = new Color(51, 51, 51);
 
     public MainFrame() throws HeadlessException {
         this.setTitle("Money Calculator");
-        this.setSize(370, 650);
+        this.setSize(390, 650);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout(10, 10));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -63,13 +64,24 @@ public class MainFrame extends JFrame {
 
     private Component createCenterPanel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout(10, 10));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(grey);
 
-        panel.add(createFromDialogPanel(), BorderLayout.NORTH);
-        panel.add(createToDialogPanel(), BorderLayout.CENTER);
-        panel.add(createNumericPanel(), BorderLayout.SOUTH);
+        panel.add(createFromDialogPanel());
+        panel.add(Box.createVerticalStrut(2));
+        panel.add(createSwapButton());
+        panel.add(Box.createVerticalStrut(2));
+        panel.add(createToDialogPanel());
+        panel.add(Box.createVerticalStrut(2));
+        panel.add(createNumericPanel());
+        return panel;
+    }
 
+
+    private Component createSwapButton(){
+        JPanel panel = new JPanel();
+        panel.setBackground(grey);
+        panel.add(createButton("\u2191 \u2193", "Swap currencies", SWAPFONT));
         return panel;
     }
 
@@ -77,12 +89,10 @@ public class MainFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setForeground(Color.WHITE);
         panel.setBackground(grey);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
         SwingCurrencyDialog fromDialog = new SwingCurrencyDialog("FROM: ");
         fromDialog.setBackground(grey);
-        fromDialog.setFont(FONT);
-
         SwingMoneyDialog moneyDialog = new SwingMoneyDialog(amountField, fromDialog);
         moneyDialog.setBackground(grey);
         this.moneyDialog = moneyDialog;
@@ -94,12 +104,10 @@ public class MainFrame extends JFrame {
     private Component createToDialogPanel() {
         JPanel panel = new JPanel();
         panel.setBackground(grey);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
         SwingCurrencyDialog toDialog = new SwingCurrencyDialog("TO: ");
         toDialog.setBackground(grey);
-        toDialog.setFont(FONT);
-
         this.toCurrencyDialog = toDialog;
         panel.add(toDialog);
 
@@ -110,21 +118,26 @@ public class MainFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setForeground(Color.WHITE);
         panel.setBackground(grey);
-        JButton button = new JButton("CONVERT");
-        button.setFont(FONT);
+
+        JButton convertButton = createButton("CONVERT", "Calculate money", FONT);
+        panel.add(convertButton);
+        return panel;
+    }
+
+    private JButton createButton(String label, String nameCommand, Font font) {
+        JButton button = new JButton(label);
+        button.setFont(font);
         button.setBackground(orange);
         button.setForeground(Color.WHITE);
-        button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         button.setPreferredSize(new Dimension(150, 40));
         button.addActionListener(_ -> {
             try {
-                commands.get("Calculate money").execute();
+                commands.get(nameCommand).execute();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
-        panel.add(button);
-        return panel;
+        return button;
     }
 
     private Component createResultPanel() {
@@ -171,5 +184,4 @@ public class MainFrame extends JFrame {
     public MoneyDialog moneyDialog() {
         return moneyDialog;
     }
-
 }
