@@ -2,13 +2,6 @@
 
 **Money Calculator** is an application that performs real-time currency conversions using data from two external APIs: one for exchange rates and another for available currencies. The application follows the **Adapter design pattern** and the **MVC (Model-View-Controller)** architecture to ensure modularity, scalability, and separation of concerns.
 
-## Features
-- Real-time currency conversion.
-- Integration with external APIs to fetch updated exchange rates and available currencies.
-- Implementation of the Adapter pattern to simplify integration with various data sources.
-- MVC-based architecture for better organization and maintainability.
-- Modular and extensible code to allow easy addition of new features and services.
-
 ## Technologies Used
 - **Language**: Java
 - **APIs**:
@@ -16,6 +9,21 @@
   - [Currencies API](https://api.exchangeratesapi.io/v1/latest?access_key=)
 - **Design Pattern**: Adapter
 - **Architecture**: MVC (Model-View-Controller)
+
+
+## User Interface
+
+The application features a user-friendly interface with the following elements:
+
+- **Currency Fields**: 
+  - **From Currency**: Select or enter the source currency (e.g., USD, EUR).
+  - **To Currency**: Select or enter the target currency (e.g., JPY, GBP).
+  
+- **Numeric Keypad**: A numeric keypad is available for entering the amount of money you want to convert. This allows for easy input using number buttons (0-9) and supports decimal entry.
+  
+- **Swap Button**: An intuitive **Swap** button, represented by an arrow icon, allows the user to quickly switch the source and target currencies without reselecting them manually.
+
+- **Calculate Button**: Once the currencies and amount are entered, the user can click the **Calculate** button to perform the conversion and display the result on the screen.
 
 ## How to Run the Program
 
